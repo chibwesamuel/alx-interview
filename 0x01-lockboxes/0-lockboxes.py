@@ -14,10 +14,10 @@ def canUnlockAll(boxes):
 
     n = len(boxes)  # Total number of boxes
     unlocked = set()  # Set to track the unlocked boxes
-    keys = set(boxes[0])  # Set to store the keys in the first box
+    unlocked.add(0)  # Add the first box (box 0) as unlocked
 
-    for box in range(n):
-        if box in unlocked or box == 0:
-            unlocked.update(boxes[box])
+    for box in unlocked:
+        keys = boxes[box]  # Get the keys in the current box
+        unlocked.update(keys)  # Update the unlocked set with the new keys
 
     return len(unlocked) == n
