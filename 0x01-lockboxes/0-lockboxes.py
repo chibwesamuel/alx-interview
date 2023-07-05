@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 def canUnlockAll(boxes):
     """
     Determines if all boxes can be opened.
@@ -13,11 +12,15 @@ def canUnlockAll(boxes):
     """
 
     n = len(boxes)  # Total number of boxes
-    unlocked = set()  # Set to track the unlocked boxes
-    unlocked.add(0)  # Add the first box (box 0) as unlocked
+    unlocked = [False] * n  # List to track the unlocked status of each box
+    unlocked[0] = True  # The first box (box 0) is unlocked
 
-    for box in unlocked:
-        keys = boxes[box]  # Get the keys in the current box
-        unlocked.update(keys)  # Update the unlocked set with the new keys
+    keys_stack = boxes[0]  # Stack to store keys found while traversing
 
-    return len(unlocked) == n
+    while keys_stack:
+        key = keys_stack.pop()
+        if 0 <= key < n and not unlocked[key]:
+            unlocked[key] = True
+            keys_stack.extend(boxes[key])
+
+    return all(unlocked)
