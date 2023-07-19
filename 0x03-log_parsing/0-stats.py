@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 Reads stdin line by line and computes metrics.
 Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
@@ -19,7 +19,7 @@ def parse_line(line):
     Parse the line and extract file size and status code.
     """
     parts = line.strip().split()
-    if len(parts) < 8 or parts[-4] != "GET" or parts[-2].isdigit() == False:
+    if len(parts) < 8 or parts[-4] != "GET" or not parts[-2].isdigit():
         return None, None
 
     status_code = int(parts[-2])
