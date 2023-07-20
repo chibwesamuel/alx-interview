@@ -5,8 +5,10 @@ Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code>
 """
 
 import sys
+from collections import defaultdict
+from typing import Dict, Tuple
 
-def print_stats(total_size, status_counts):
+def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     """
     Print the computed statistics.
     """
@@ -14,7 +16,7 @@ def print_stats(total_size, status_counts):
     for status_code, count in sorted(status_counts.items()):
         print(f"{status_code}: {count}")
 
-def parse_line(line):
+def parse_line(line: str) -> Tuple[int, int]:
     """
     Parse the line and extract file size and status code.
     """
@@ -26,18 +28,23 @@ def parse_line(line):
     file_size = int(parts[-1])
     return status_code, file_size
 
-def main():
+def main() -> None:
+    """
+    Main function to compute metrics.
+    """
     total_size = 0
-    status_counts = {}
+    status_counts = defaultdict(int)
+    line_counter = 0
 
     try:
-        for i, line in enumerate(sys.stdin, 1):
+        for line in sys.stdin:
+            line_counter += 1
             status_code, file_size = parse_line(line)
             if status_code is not None and file_size is not None:
                 total_size += file_size
-                status_counts[status_code] = status_counts.get(status_code, 0) + 1
+                status_counts[status_code] += 1
 
-            if i % 10 == 0:
+            if line_counter % 10 == 0:
                 print_stats(total_size, status_counts)
     except KeyboardInterrupt:
         print_stats(total_size, status_counts)
