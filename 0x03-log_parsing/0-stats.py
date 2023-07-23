@@ -12,7 +12,7 @@ from typing import Dict, Tuple
 
 def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     """
-    Printing the computed statistics.
+    Print the computed statistics.
     """
     print("File size:", total_size)
     for status_code, count in sorted(status_counts.items()):
@@ -38,17 +38,13 @@ def main() -> None:
     status_counts = defaultdict(int)
 
     try:
-        while True:
-            line = sys.stdin.readline()
-            if not line:
-                break
-            
+        for line_counter, line in enumerate(sys.stdin, 1):
             status_code, file_size = parse_line(line)
             if status_code is not None and file_size is not None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-            if len(status_counts) % 10 == 0:
+            if line_counter % 10 == 0:
                 print_stats(total_size, status_counts)
 
     except KeyboardInterrupt:
