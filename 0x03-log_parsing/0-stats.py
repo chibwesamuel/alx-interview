@@ -12,7 +12,7 @@ from typing import Dict, Tuple
 
 def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     """
-    Print the computed statistics.
+    Printing the computed statistics.
     """
     print("File size:", total_size)
     for status_code, count in sorted(status_counts.items()):
