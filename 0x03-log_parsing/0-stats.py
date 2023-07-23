@@ -36,20 +36,28 @@ def main() -> None:
     """
     total_size = 0
     status_counts = defaultdict(int)
-    line_counter = 0
 
     try:
-        for line in sys.stdin:
-            line_counter += 1
+        while True:
+            line = sys.stdin.readline()
+            if not line:
+                break
+            
             status_code, file_size = parse_line(line)
             if status_code is not None and file_size is not None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-            if line_counter % 10 == 0:
+            if len(status_counts) % 10 == 0:
                 print_stats(total_size, status_counts)
+
     except KeyboardInterrupt:
+        # Print final statistics before terminating on KeyboardInterrupt
         print_stats(total_size, status_counts)
+        sys.exit(0)
+
+    # Print final statistics if the loop ends without KeyboardInterrupt
+    print_stats(total_size, status_counts)
 
 if __name__ == "__main__":
     main()
