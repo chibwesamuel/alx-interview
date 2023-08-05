@@ -15,6 +15,7 @@ Usage:
 Returns:
     None
 """
+import sys
 
 
 def is_safe(board, row, col, N):
@@ -47,6 +48,7 @@ def is_safe(board, row, col, N):
             return False
 
     return True
+
 
 def solve_nqueens(N):
     """
@@ -96,6 +98,7 @@ def solve_nqueens(N):
     backtrack(0)
     print_solutions(solutions)
 
+
 def print_solutions(solutions):
     """
     Print all the solutions.
@@ -129,4 +132,3 @@ if __name__ == "__main__":
     except ValueError:
         print("N must be a number")
         exit(1)
-
