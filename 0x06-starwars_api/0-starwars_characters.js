@@ -1,5 +1,4 @@
 #!/usr/bin/node
-// Usage: ./0-starwars_characters.js <Movie_ID>
 
 const request = require('request');
 
@@ -25,18 +24,28 @@ request(url, (error, response, body) => {
   const filmData = JSON.parse(body);
   const characters = filmData.characters;
 
-  for (const characterUrl of characters) {
-    request(characterUrl, (charError, charResponse, charBody) => {
-      if (charError) {
-        console.error(charError);
-        return;
-      }
-
-      if (charResponse.statusCode === 200) {
-        const character = JSON.parse(charBody);
-        console.log(character.name);
-      }
+  const requests = characters.map(characterUrl => {
+    return new Promise((resolve, reject) => {
+      request(characterUrl, (charError, charResponse, charBody) => {
+        if (charError) {
+          reject(charError);
+        } else if (charResponse.statusCode === 200) {
+          const character = JSON.parse(charBody);
+          resolve(character.name);
+        } else {
+          reject(`Request failed with status
+          code ${charResponse.statusCode}`);
+        }
+      });
     });
-  }
+  });
+
+  Promise.all(requests)
+    .then(names => {
+      names.forEach(name => console.log(name));
+    })
+    .catch(error => {
+      console.error(error);
+    });
 });
 
