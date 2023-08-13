@@ -33,8 +33,8 @@ request(url, (error, response, body) => {
           const character = JSON.parse(charBody);
           resolve(character.name);
         } else {
-          reject(`Request failed with status
-          code ${charResponse.statusCode}`);
+          reject(new Error(`Request failed with status
+        code ${charResponse.statusCode}`)); // Wrap error in an Error instance
         }
       });
     });
@@ -48,4 +48,3 @@ request(url, (error, response, body) => {
       console.error(error);
     });
 });
-
