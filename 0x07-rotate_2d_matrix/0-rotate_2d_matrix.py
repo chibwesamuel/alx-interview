@@ -1,5 +1,10 @@
 #!/usr/bin/python3
+"""
+Rotates a matrix by 90 degrees clockwise
+Args: matrix (List[List[int]]): The input 2D matrix.
 
+Returns: None. The matrix is edited in-place.
+"""
 from typing import List
 
 def rotate_2d_matrix(matrix: List[List[int]]) -> None:
