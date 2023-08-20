@@ -63,4 +63,3 @@ if __name__ == "__main__":
     print("Rotated Matrix:")
     for row in matrix3:
         print(row)
-
