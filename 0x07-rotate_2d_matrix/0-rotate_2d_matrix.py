@@ -5,7 +5,6 @@ Args: matrix (List[List[int]]): The input 2D matrix.
 
 Returns: None. The matrix is edited in-place.
 """
-from typing import List
 
 
 def rotate_2d_matrix(matrix: List[List[int]]) -> None:
@@ -41,4 +40,3 @@ if __name__ == "__main__":
     print("Rotated Matrix:")
     for row in matrix:
         print(row)
-
