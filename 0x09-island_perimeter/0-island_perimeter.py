@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+This script defines a function to calculate the perimeter of an island
+described in a 2D grid. The grid is represented as a list of lists of
+integers, where 1s represent land and 0s represent water. The function
+iterates through the grid, calculating the perimeter of the land by
+considering neighboring cells. The final perimeter value is returned.
+"""
 
 def island_perimeter(grid):
     """
