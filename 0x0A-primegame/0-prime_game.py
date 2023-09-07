@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""
+Prime Game Solver
+
+This script contains a function to determine the winner of the Prime Game
+based on a given number of rounds and the maximum value for each round.
+
+The Prime Game is a two-player game where Maria and Ben take turns choosing
+a prime number from a set of consecutive integers starting from 1 up to and
+including n. They remove the chosen number and its multiples from the set.
+The player who cannot make a move loses the game. The function calculates the
+winner of the game based on the number of prime numbers available and the
+total number of rounds played.
+
+Author: Samuel Mukosa Chibwe
+"""
+
+from typing import List, Optional
+
+
+def is_prime(n: int) -> bool:
+    """
+    Check if a given number is prime.
+
+    Args:
+        n (int): The number to check.
+
+    Returns:
+        bool: True if n is prime, False otherwise.
+    """
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+
+def isWinner(x: int, nums: List[int]) -> Optional[str]:
+    """
+    Determine the winner of the Prime Game.
+
+    Args:
+        x (int): The number of rounds to play.
+        nums (List[int]): An array of integers representing the maximum
+        value (n) for each round.
+
+    Returns:
+        Optional[str]: The name of the player who won the most rounds
+        (either 'Maria', 'Ben'), or None if the winner cannot be determined.
+    """
+    prime_counts = sum([is_prime(n) for n in nums])
+    if prime_counts == 0:
+        return None
+    if x % 2 == 0:
+        return "Ben"
+    else:
+        return "Maria"
+
+
+# Test the function with sample inputs
+if __name__ == "__main__":
+    """Main function"""
+    x = 3
+    nums = [4, 5, 1]
+    print("Winner: {}".format(isWinner(x, nums)))
