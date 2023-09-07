@@ -8,13 +8,14 @@ based on a given number of rounds and the maximum value for each round.
 The Prime Game is a two-player game where Maria and Ben take turns choosing
 a prime number from a set of consecutive integers starting from 1 up to and
 including n. They remove the chosen number and its multiples from the set.
-The player who cannot make a move loses the game. The function calculates the
-winner of the game based on the number of prime numbers available and the
-total number of rounds played.
+The player who cannot make a move loses the game. The function calculates
+the winner of the game based on the number of prime numbers available and
+the total number of rounds played.
 
 Author: Samuel Mukosa Chibwe
 """
 
+import random
 from typing import List, Optional
 
 
@@ -48,25 +49,26 @@ def isWinner(x: int, nums: List[int]) -> Optional[str]:
 
     Args:
         x (int): The number of rounds to play.
-        nums (List[int]): An array of integers representing the maximum
-        value (n) for each round.
+        nums (List[int]): An array of integers representing the maximum value
+        (n) for each round.
 
     Returns:
         Optional[str]: The name of the player who won the most rounds
         (either 'Maria', 'Ben'), or None if the winner cannot be determined.
     """
     prime_counts = sum([is_prime(n) for n in nums])
-    if prime_counts == 0:
-        return None
-    if x % 2 == 0:
+    if prime_counts % 2 == 0:
         return "Ben"
     else:
         return "Maria"
 
 
-# Test the function with sample inputs
+# Test the function with random values for x and nums
 if __name__ == "__main__":
     """Main function"""
-    x = 3
-    nums = [4, 5, 1]
+    x = random.randint(1, 10)  # Generate random value between 1 and 10)
+    nums = [random.randint(1, 100) for _ in range(x)]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))
+
