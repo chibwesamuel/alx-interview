@@ -56,7 +56,10 @@ def isWinner(x, nums):
     if x <= 0:
         return None
 
-    prime_counts = sum([is_prime(n) for n in nums if n >= 2])
+    prime_counts = 0
+    for n in nums:
+        if n >= 2:
+            prime_counts += is_prime(n)
 
     if prime_counts % 2 == 0:
         return "Ben"
