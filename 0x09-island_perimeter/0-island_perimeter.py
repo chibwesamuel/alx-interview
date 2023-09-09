@@ -7,6 +7,7 @@ iterates through the grid, calculating the perimeter of the land by
 considering neighboring cells. The final perimeter value is returned.
 """
 
+
 def island_perimeter(grid):
     """
     Calculate the perimeter of an island described in a grid.
