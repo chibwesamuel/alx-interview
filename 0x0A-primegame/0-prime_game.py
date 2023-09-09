@@ -15,16 +15,12 @@ the total number of rounds played.
 Author: Samuel Mukosa Chibwe
 """
 
-import random
-from typing import List, Optional
-
-
-def is_prime(n: int) -> bool:
+def is_prime(n):
     """
     Check if a given number is prime.
 
     Args:
-        n (int): The number to check.
+        n: The number to check.
 
     Returns:
         bool: True if n is prime, False otherwise.
@@ -42,18 +38,17 @@ def is_prime(n: int) -> bool:
         i += 6
     return True
 
-
-def isWinner(x: int, nums: List[int]) -> Optional[str]:
+def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
 
     Args:
-        x (int): The number of rounds to play.
-        nums (List[int]): An array of integers representing the maximum value
+        x: The number of rounds to play.
+        nums: An array of integers representing the maximum value
         (n) for each round.
 
     Returns:
-        Optional[str]: The name of the player who won the most rounds
+        str: The name of the player who won the most rounds
         (either 'Maria', 'Ben'), or None if the winner cannot be determined.
     """
     prime_counts = sum([is_prime(n) for n in nums])
@@ -62,13 +57,18 @@ def isWinner(x: int, nums: List[int]) -> Optional[str]:
     else:
         return "Maria"
 
-
-# Test the function with random values for x and nums
+# Test Cases
 if __name__ == "__main__":
-    """Main function"""
-    x = random.randint(1, 10)  # Generate random value between 1 and 10)
-    nums = [random.randint(1, 100) for _ in range(x)]
+    # Test Case 1: Specific input
+    x = 5
+    nums = [1, 2, 3, 4, 5]
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    print("Winner: {}".format(isWinner(x, nums)))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Ben
 
+    # Test Case 2: Specific input
+    x = 10
+    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output Ben
