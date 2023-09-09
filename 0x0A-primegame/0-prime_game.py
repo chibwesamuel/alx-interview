@@ -15,6 +15,7 @@ the total number of rounds played.
 Author: Samuel Mukosa Chibwe
 """
 
+
 def is_prime(n):
     """
     Check if a given number is prime.
@@ -38,6 +39,7 @@ def is_prime(n):
         i += 6
     return True
 
+
 def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
@@ -53,13 +55,14 @@ def isWinner(x, nums):
     """
     if x <= 0:
         return None
-    
+
     prime_counts = sum([is_prime(n) for n in nums if n >= 2])
-    
+
     if prime_counts % 2 == 0:
         return "Ben"
     else:
         return "Maria"
+
 
 # Test Cases
 if __name__ == "__main__":
