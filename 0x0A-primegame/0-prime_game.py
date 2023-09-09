@@ -90,4 +90,3 @@ if __name__ == "__main__":
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
-
