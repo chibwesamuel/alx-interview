@@ -51,7 +51,11 @@ def isWinner(x, nums):
         str: The name of the player who won the most rounds
         (either 'Maria', 'Ben'), or None if the winner cannot be determined.
     """
-    prime_counts = sum([is_prime(n) for n in nums])
+    if x <= 0:
+        return None
+    
+    prime_counts = sum([is_prime(n) for n in nums if n >= 2])
+    
     if prime_counts % 2 == 0:
         return "Ben"
     else:
@@ -71,4 +75,19 @@ if __name__ == "__main__":
     nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    print("Winner: {}".format(isWinner(x, nums)))  # Expected output Ben
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Ben
+
+    # Test Case 3: Handle n = 0
+    x = 1
+    nums = [0]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
+
+    # Test Case 4: Handle negative x
+    x = -1
+    nums = [10]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
+
