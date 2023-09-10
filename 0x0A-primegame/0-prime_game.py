@@ -78,9 +78,11 @@ def isWinner(x, nums):
             return None  # Invalid game state
 
         primes = [i for i in range(2, n + 1) if is_prime(i)]
+        total_primes = len(primes)
+
         ben_turn = True  # Initialize with Ben's turn
 
-        while primes:
+        for _ in range(total_primes):
             if ben_turn:
                 choice = max(primes)
             else:
@@ -99,7 +101,6 @@ def isWinner(x, nums):
         return "Maria"
     else:
         return None  # It's a tie
-
 
 # Test Cases
 if __name__ == "__main__":
