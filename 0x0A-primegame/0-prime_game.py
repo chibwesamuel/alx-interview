@@ -78,16 +78,18 @@ def isWinner(x, nums):
             return None  # Invalid game state
 
         primes = [i for i in range(2, n + 1) if is_prime(i)]
-        total_primes = len(primes)
-
         ben_turn = True  # Initialize with Ben's turn
 
-        for _ in range(total_primes):
+        for _ in range(n):
+            valid_choices = [p for p in primes if p <= n]
+            if not valid_choices:
+                break  # No valid prime choices left
             if ben_turn:
-                choice = max(primes)
+                choice = max(valid_choices)
             else:
-                choice = min(primes)
+                choice = min(valid_choices)
             primes.remove(choice)
+            n -= choice
             ben_turn = not ben_turn
 
         if ben_turn:
