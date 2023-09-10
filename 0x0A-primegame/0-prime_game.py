@@ -56,14 +56,14 @@ def isWinner(x, nums):
     if x <= 0:
         return None
 
+    def can_win(n):
+        # Function to check if a player can win the game with maximum value n
+        return n >= 2 and is_prime(n)
+
     ben_turn = True  # Initialize with Ben's turn
     for n in nums:
-        if n < 2:
-            return None  # Invalid game state
-
-        ben_turn ^= True  # Toggle the player's turn
-        if not is_prime(n):
-            return "Maria" if ben_turn else "Ben"
+        if can_win(n):
+            ben_turn ^= True  # Toggle the player's turn
 
     return "Maria" if ben_turn else "Ben"
 
