@@ -76,18 +76,22 @@ def isWinner(x, nums):
     for n in nums:
         if n < 2:
             return None  # Invalid game state
-        prime_found = False
 
-        for i in range(2, n + 1):
-            if is_prime(i):
-                prime_found = True
-                break
+        primes = [i for i in range(2, n + 1) if is_prime(i)]
+        ben_turn = True  # Initialize with Ben's turn
 
-        if prime_found:
-            if (n - 1) % 2 == 0:
-                ben_wins += 1
+        while primes:
+            if ben_turn:
+                choice = max(primes)
             else:
-                maria_wins += 1
+                choice = min(primes)
+            primes.remove(choice)
+            ben_turn = not ben_turn
+
+        if ben_turn:
+            ben_wins += 1
+        else:
+            maria_wins += 1
 
     if ben_wins > maria_wins:
         return "Ben"
@@ -95,6 +99,7 @@ def isWinner(x, nums):
         return "Maria"
     else:
         return None  # It's a tie
+
 
 # Test Cases
 if __name__ == "__main__":
