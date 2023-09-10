@@ -96,3 +96,17 @@ if __name__ == "__main__":
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
+
+    # Test Case 1: Specific input
+    x = 5
+    nums = [1, 2, 3, 4, 5]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
+
+    # Test Case 6: Specific input
+    x = 10
+    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
