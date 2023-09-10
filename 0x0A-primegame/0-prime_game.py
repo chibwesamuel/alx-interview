@@ -56,15 +56,16 @@ def isWinner(x, nums):
     if x <= 0:
         return None
 
-    prime_counts = 0
+    ben_turn = True  # Initialize with Ben's turn
     for n in nums:
-        if n >= 2:
-            prime_counts += is_prime(n)
+        if n < 2:
+            return None  # Invalid game state
 
-    if prime_counts % 2 == 0:
-        return "Ben"
-    else:
-        return "Maria"
+        ben_turn ^= True  # Toggle the player's turn
+        if not is_prime(n):
+            return "Maria" if ben_turn else "Ben"
+
+    return "Maria" if ben_turn else "Ben"
 
 
 # Test Cases
