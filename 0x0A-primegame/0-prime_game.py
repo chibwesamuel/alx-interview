@@ -56,17 +56,45 @@ def isWinner(x, nums):
     if x <= 0:
         return None
 
-    def can_win(n):
-        # Function to check if a player can win the game with maximum value n
-        return n >= 2 and is_prime(n)
+    def is_prime(n):
+        if n <= 1:
+            return False
+        if n <= 3:
+            return True
+        if n % 2 == 0 or n % 3 == 0:
+            return False
+        i = 5
+        while i * i <= n:
+            if n % i == 0 or n % (i + 2) == 0:
+                return False
+            i += 6
+        return True
 
-    ben_turn = True  # Initialize with Ben's turn
+    ben_wins = 0
+    maria_wins = 0
+
     for n in nums:
-        if can_win(n):
-            ben_turn ^= True  # Toggle the player's turn
+        if n < 2:
+            return None  # Invalid game state
+        prime_found = False
 
-    return "Maria" if ben_turn else "Ben"
+        for i in range(2, n + 1):
+            if is_prime(i):
+                prime_found = True
+                break
 
+        if prime_found:
+            if (n - 1) % 2 == 0:
+                ben_wins += 1
+            else:
+                maria_wins += 1
+
+    if ben_wins > maria_wins:
+        return "Ben"
+    elif maria_wins > ben_wins:
+        return "Maria"
+    else:
+        return None  # It's a tie
 
 # Test Cases
 if __name__ == "__main__":
