@@ -24,15 +24,14 @@ def makeChange(coins: List[int], total: int) -> Union[int, float]:
         return 0
 
     INF = float('inf')
-    min_coins = [INF] * (total + 1)
-    min_coins[0] = 0
+    dp = [INF] * (total + 1)
+    dp[0] = 0
 
-    for i in range(1, total + 1):
-        for coin in coins:
-            if i - coin >= 0:
-                min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
+    for coin in coins:
+        for i in range(coin, total + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
 
-    return min_coins[total] if min_coins[total] != INF else -1
+    return dp[total] if dp[total] != INF else -1
 
 
 if __name__ == "__main__":
