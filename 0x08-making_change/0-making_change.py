@@ -23,15 +23,30 @@ def makeChange(coins: List[int], total: int) -> Union[int, float]:
     if total <= 0:
         return 0
 
-    INF = float('inf')
-    dp = [INF] * (total + 1)
-    dp[0] = 0
+    memo = {}  # Memoization dictionary to store computed results
 
-    for coin in coins:
-        for i in range(coin, total + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+    def dp(target):
+        if target in memo:
+            return memo[target]
+        if target == 0:
+            return 0
+        if target < 0:
+            return -1
 
-    return dp[total] if dp[total] != INF else -1
+        INF = float('inf')
+        min_count = INF
+
+        for coin in coins:
+            subproblem = dp(target - coin)
+            if subproblem == -1:
+                continue
+            min_count = min(min_count, subproblem + 1)
+
+        memo[target] = min_count if min_count != INF else -1
+        return memo[target]
+
+    result = dp(total)
+    return result
 
 
 if __name__ == "__main__":
