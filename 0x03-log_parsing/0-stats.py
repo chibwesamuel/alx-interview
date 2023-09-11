@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
 Reads stdin line by line and computes metrics.
-Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1"
-<status code> <file size>
+Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
 Return status codes in ascending order
 """
 
@@ -42,12 +41,15 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) < 10:
+    if len(parts) < 8:
         return None, None
 
-    status_code = int(parts[-2])
-    file_size = int(parts[-1])
-    return status_code, file_size
+    try:
+        status_code = int(parts[-2])
+        file_size = int(parts[-1])
+        return status_code, file_size
+    except ValueError:
+        return None, None
 
 
 def handle_interrupt(signum: int, frame) -> None:
@@ -101,4 +103,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    """Main function"""
     main()
