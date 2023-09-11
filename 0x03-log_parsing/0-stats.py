@@ -22,7 +22,7 @@ def print_stats() -> None:
 
     Args: None
 
-    Return: none
+    Returns: None
     """
     print("File size:", total_size)
     for status_code in sorted(status_counts.keys()):
@@ -57,6 +57,8 @@ def handle_interrupt(signum: int, frame) -> None:
     Args:
         signum (int): The signal number (e.g., SIGINT).
         frame: The current execution frame.
+
+    Returns: None
     """
     print_stats()
     sys.exit(0)
@@ -66,32 +68,37 @@ def handle_interrupt(signum: int, frame) -> None:
 signal.signal(signal.SIGINT, handle_interrupt)
 
 
-try:
-    for line_counter, line in enumerate(sys.stdin, 1):
-        status_code, file_size = parse_line(line)
-        if status_code is not None and file_size is not None:
-            total_size += file_size
-            status_counts[status_code] += 1
-
-
-if line_counter % 10 == 0:
-    print_stats()
-
-
-except KeyboardInterrupt:
+def main() -> None:
     """
-    The signal handler will print statistics and exit
+    Main function to compute metrics.
 
     Args: None
 
-    Return: None
+    Returns: None
     """
-    pass
+    try:
+        for line_counter, line in enumerate(sys.stdin, 1):
+            status_code, file_size = parse_line(line)
+            if status_code is not None and file_size is not None:
+                total_size += file_size
+                status_counts[status_code] += 1
 
-# Print final statistics if the loop ends without KeyboardInterrupt
-print_stats()
+            if line_counter % 10 == 0:
+                print_stats()
+
+    except KeyboardInterrupt:
+        """
+        Handle KeyboardInterrupt by printing statistics and exiting.
+
+        Args: None
+
+        Returns: None
+        """
+        pass
+
+    # Print final statistics if the loop ends without KeyboardInterrupt
+    print_stats()
 
 
 if __name__ == "__main__":
-    """main function"""
     main()
