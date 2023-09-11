@@ -89,6 +89,6 @@ except KeyboardInterrupt:
 print_stats()
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     """main function"""
     main()
