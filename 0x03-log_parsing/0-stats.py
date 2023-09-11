@@ -9,7 +9,7 @@ Return status codes in ascending order
 import sys
 from collections import defaultdict
 import signal
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional
 
 # Global variables to store statistics
 total_size: int = 0
@@ -77,3 +77,8 @@ except KeyboardInterrupt:
 
 # Print final statistics if the loop ends without KeyboardInterrupt
 print_stats()
+
+
+if __name__ = "__main__":
+    """main function"""
+    main()
