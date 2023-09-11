@@ -42,10 +42,10 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) < 9 or parts[-4] != "GET" or not parts[-2].isdigit():
+    if len(parts) < 10 or parts[-3] != "GET" or not parts[-1].isdigit():
         return None, None
 
-    status_code = int(parts[-3])
+    status_code = int(parts[-2])
     file_size = int(parts[-1])
     return status_code, file_size
 
