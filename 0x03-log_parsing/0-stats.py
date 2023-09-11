@@ -19,6 +19,10 @@ status_counts: Dict[int, int] = defaultdict(int)
 def print_stats() -> None:
     """
     Print the computed statistics.
+
+    Args: None
+
+    Return: none
     """
     print("File size:", total_size)
     for status_code in sorted(status_counts.keys()):
@@ -72,7 +76,13 @@ try:
 
 
 except KeyboardInterrupt:
-    # The signal handler will print statistics and exit
+    """
+    The signal handler will print statistics and exit
+
+    Args: None
+
+    Return: None
+    """
     pass
 
 # Print final statistics if the loop ends without KeyboardInterrupt
