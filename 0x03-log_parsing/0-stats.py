@@ -10,6 +10,7 @@ import sys
 from collections import defaultdict
 from typing import Dict, Tuple
 
+
 def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     """
     Print the computed statistics.
@@ -17,6 +18,7 @@ def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     print("File size:", total_size)
     for status_code, count in sorted(status_counts.items()):
         print(f"{status_code}: {count}")
+
 
 def parse_line(line: str) -> Tuple[int, int]:
     """
@@ -29,6 +31,7 @@ def parse_line(line: str) -> Tuple[int, int]:
     status_code = int(parts[-2])
     file_size = int(parts[-1])
     return status_code, file_size
+
 
 def main() -> None:
     """
@@ -55,6 +58,6 @@ def main() -> None:
     # Print final statistics if the loop ends without KeyboardInterrupt
     print_stats(total_size, status_counts)
 
+
 if __name__ == "__main__":
     main()
-
