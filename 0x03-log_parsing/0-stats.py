@@ -8,27 +8,22 @@ Return status codes in ascending order
 
 import sys
 from collections import defaultdict
+import signal
 from typing import Dict, Tuple
 
+# Global variables to store statistics
+total_size: int = 0
+status_counts: Dict[int, int] = defaultdict(int)
 
-def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
+def print_stats() -> None:
     """
     Print the computed statistics.
-
-    Args:
-        total_size (int): The total file size.
-        status_counts (Dict[int, int]): A dictionary mapping status codes
-        to their counts.
-
-    Returns:
-        None
     """
     print("File size:", total_size)
-    for status_code, count in sorted(status_counts.items()):
-        print(f"{status_code}: {count}")
+    for status_code in sorted(status_counts.keys()):
+        print(f"{status_code}: {status_counts[status_code]}")
 
-
-def parse_line(line: str) -> Tuple[int, int]:
+def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
     """
     Parse the line and extract file size and status code.
 
@@ -36,39 +31,44 @@ def parse_line(line: str) -> Tuple[int, int]:
         line (str): The input line to parse.
 
     Returns:
-        Tuple[int, int]: A tuple containing the status code and file size.
-                        Returns (None, None) if parsing fails.
+        Tuple[Optional[int], Optional[int]]: A tuple containing the status code and file size.
+                                              Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) >= 8 and parts[-4] == "GET" and parts[-2].isdigit():
-        status_code = int(parts[-2])
-        file_size = int(parts[-1])
-        return status_code, file_size
-    return None, None
+    if len(parts) < 8 or parts[-4] != "GET" or not parts[-2].isdigit():
+        return None, None
 
+    status_code = int(parts[-2])
+    file_size = int(parts[-1])
+    return status_code, file_size
 
-def main() -> None:
+def handle_interrupt(signum: int, frame) -> None:
     """
-    Main function to compute metrics.
+    Handle KeyboardInterrupt by printing statistics and exiting.
+
+    Args:
+        signum (int): The signal number (e.g., SIGINT).
+        frame: The current execution frame.
     """
-    total_size = 0
-    status_counts = defaultdict(int)
+    print_stats()
+    sys.exit(0)
 
-    try:
-        for line_counter, line in enumerate(sys.stdin, 1):
-            status_code, file_size = parse_line(line)
-            if status_code is not None and file_size is not None:
-                total_size += file_size
-                status_counts[status_code] += 1
+# Register the signal handler for KeyboardInterrupt (CTRL + C)
+signal.signal(signal.SIGINT, handle_interrupt)
 
-        # Print final statistics
-        print_stats(total_size, status_counts)
+try:
+    for line_counter, line in enumerate(sys.stdin, 1):
+        status_code, file_size = parse_line(line)
+        if status_code is not None and file_size is not None:
+            total_size += file_size
+            status_counts[status_code] += 1
 
-    except KeyboardInterrupt:
-        # Print final statistics before terminating on KeyboardInterrupt
-        print_stats(total_size, status_counts)
-        sys.exit(0)
+        if line_counter % 10 == 0:
+            print_stats()
 
-if __name__ == "__main__":
-    """main function"""
-    main()
+except KeyboardInterrupt:
+    # The signal handler will print statistics and exit
+    pass
+
+# Print final statistics if the loop ends without KeyboardInterrupt
+print_stats()
