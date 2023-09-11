@@ -61,6 +61,7 @@ def handle_interrupt(signum: int, frame) -> None:
     print_stats()
     sys.exit(0)
 
+
 # Register the signal handler for KeyboardInterrupt (CTRL + C)
 signal.signal(signal.SIGINT, handle_interrupt)
 
@@ -72,8 +73,9 @@ try:
             total_size += file_size
             status_counts[status_code] += 1
 
-        if line_counter % 10 == 0:
-            print_stats()
+
+if line_counter % 10 == 0:
+    print_stats()
 
 
 except KeyboardInterrupt:
