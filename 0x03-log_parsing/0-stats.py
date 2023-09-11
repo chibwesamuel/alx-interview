@@ -42,7 +42,7 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) < 10 or parts[-3] != "GET" or not parts[-1].isdigit():
+    if len(parts) < 10:
         return None, None
 
     status_code = int(parts[-2])
@@ -62,6 +62,7 @@ def handle_interrupt(signum: int, frame) -> None:
     """
     print_stats()
     sys.exit(0)
+
 
 # Register the signal handler for KeyboardInterrupt (CTRL + C)
 signal.signal(signal.SIGINT, handle_interrupt)
