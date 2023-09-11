@@ -15,6 +15,7 @@ from typing import Dict, Tuple
 total_size: int = 0
 status_counts: Dict[int, int] = defaultdict(int)
 
+
 def print_stats() -> None:
     """
     Print the computed statistics.
@@ -22,6 +23,7 @@ def print_stats() -> None:
     print("File size:", total_size)
     for status_code in sorted(status_counts.keys()):
         print(f"{status_code}: {status_counts[status_code]}")
+
 
 def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
     """
@@ -31,8 +33,9 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         line (str): The input line to parse.
 
     Returns:
-        Tuple[Optional[int], Optional[int]]: A tuple containing the status code and file size.
-                                              Returns (None, None) if parsing fails.
+        Tuple[Optional[int], Optional[int]]: A tuple containing the status
+        code and file size.
+        Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
     if len(parts) < 8 or parts[-4] != "GET" or not parts[-2].isdigit():
@@ -41,6 +44,7 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
     status_code = int(parts[-2])
     file_size = int(parts[-1])
     return status_code, file_size
+
 
 def handle_interrupt(signum: int, frame) -> None:
     """
@@ -65,6 +69,7 @@ try:
 
         if line_counter % 10 == 0:
             print_stats()
+
 
 except KeyboardInterrupt:
     # The signal handler will print statistics and exit
