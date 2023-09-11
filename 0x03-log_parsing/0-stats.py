@@ -51,9 +51,6 @@ def parse_line(line: str) -> Tuple[int, int]:
 def main() -> None:
     """
     Main function to compute metrics.
-
-    Returns:
-        None
     """
     total_size = 0
     status_counts = defaultdict(int)
@@ -65,16 +62,13 @@ def main() -> None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-            if line_counter % 10 == 0:
-                print_stats(total_size, status_counts)
+        # Print final statistics
+        print_stats(total_size, status_counts)
 
     except KeyboardInterrupt:
         # Print final statistics before terminating on KeyboardInterrupt
         print_stats(total_size, status_counts)
         sys.exit(0)
-
-    # Print final statistics if the loop ends without KeyboardInterrupt
-    print_stats(total_size, status_counts)
 
 
 if __name__ == "__main__":
