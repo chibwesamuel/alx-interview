@@ -62,6 +62,9 @@ def main() -> None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
+            # Debugging print statements
+            # print(f"Line {line_counter}: Status Code: {status_code}, File Size: {file_size}")
+
         # Print final statistics
         print_stats(total_size, status_counts)
 
