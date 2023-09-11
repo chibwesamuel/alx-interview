@@ -74,7 +74,6 @@ try:
         if line_counter % 10 == 0:
             print_stats()
 
-
 except KeyboardInterrupt:
     """
     The signal handler will print statistics and exit
