@@ -10,10 +10,14 @@ import sys
 from collections import defaultdict
 import signal
 from typing import Dict, Tuple, Optional
+import re
 
 # Global variables to store statistics
 total_size: int = 0
 status_counts: Dict[int, int] = defaultdict(int)
+
+# Regular expression to match the expected input format
+log_pattern = re.compile(r'(\S+) - \[.+\] "GET .+ (\d+) (\d+)"')
 
 
 def print_stats() -> None:
@@ -41,16 +45,13 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         code and file size.
         Returns (None, None) if parsing fails.
     """
-    parts = line.strip().split()
-    if len(parts) < 8:
-        return None, None
-
-    try:
-        status_code = int(parts[-2])
-        file_size = int(parts[-1])
+    match = log_pattern.match(line.strip())
+    if match:
+        status_code = int(match.group(2))
+        file_size = int(match.group(3))
         return status_code, file_size
-    except ValueError:
-        return None, None
+
+    return None, None
 
 
 def handle_interrupt(signum: int, frame) -> None:
@@ -104,5 +105,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    """Main function"""
     main()
