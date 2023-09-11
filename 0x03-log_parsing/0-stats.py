@@ -40,12 +40,11 @@ def parse_line(line: str) -> Tuple[int, int]:
                         Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) < 8 or parts[-4] != "GET" or not parts[-2].isdigit():
-        return None, None
-
-    status_code = int(parts[-2])
-    file_size = int(parts[-1])
-    return status_code, file_size
+    if len(parts) >= 8 and parts[-4] == "GET" and parts[-2].isdigit():
+        status_code = int(parts[-2])
+        file_size = int(parts[-1])
+        return status_code, file_size
+    return None, None
 
 
 def main() -> None:
@@ -62,10 +61,6 @@ def main() -> None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-            # Debugging print statements
-            # print(f"Line {line_counter}: Status Code: {status_code},
-            # File Size: {file_size}")
-
         # Print final statistics
         print_stats(total_size, status_counts)
 
@@ -74,7 +69,6 @@ def main() -> None:
         print_stats(total_size, status_counts)
         sys.exit(0)
 
-
 if __name__ == "__main__":
-    """Main function"""
+    """main function"""
     main()
