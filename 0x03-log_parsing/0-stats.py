@@ -63,7 +63,6 @@ def handle_interrupt(signum: int, frame) -> None:
     print_stats()
     sys.exit(0)
 
-
 # Register the signal handler for KeyboardInterrupt (CTRL + C)
 signal.signal(signal.SIGINT, handle_interrupt)
 
