@@ -42,7 +42,7 @@ def parse_line(line: str) -> Tuple[Optional[int], Optional[int]]:
         Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
-    if len(parts) < 9 or parts[-4] != "GET" or not parts[-2].isdigit():
+    if len(parts) < 7 or parts[-4] != "GET" or not parts[-2].isdigit():
         return None, None
 
     status_code = int(parts[-2])
