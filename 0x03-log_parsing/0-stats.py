@@ -14,6 +14,14 @@ from typing import Dict, Tuple
 def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
     """
     Print the computed statistics.
+
+    Args:
+        total_size (int): The total file size.
+        status_counts (Dict[int, int]): A dictionary mapping status codes
+        to their counts.
+
+    Returns:
+        None
     """
     print("File size:", total_size)
     for status_code, count in sorted(status_counts.items()):
@@ -23,6 +31,13 @@ def print_stats(total_size: int, status_counts: Dict[int, int]) -> None:
 def parse_line(line: str) -> Tuple[int, int]:
     """
     Parse the line and extract file size and status code.
+
+    Args:
+        line (str): The input line to parse.
+
+    Returns:
+        Tuple[int, int]: A tuple containing the status code and file size.
+                        Returns (None, None) if parsing fails.
     """
     parts = line.strip().split()
     if len(parts) < 8 or parts[-4] != "GET" or not parts[-2].isdigit():
@@ -36,6 +51,9 @@ def parse_line(line: str) -> Tuple[int, int]:
 def main() -> None:
     """
     Main function to compute metrics.
+
+    Returns:
+        None
     """
     total_size = 0
     status_counts = defaultdict(int)
@@ -60,4 +78,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    """Main function"""
     main()
