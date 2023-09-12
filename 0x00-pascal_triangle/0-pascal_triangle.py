@@ -22,14 +22,14 @@ def pascal_triangle(n):
         return []
 
     triangle = [[1]]  # Initialize the triangle with the first row [1]
-    
+
     for i in range(1, n):
         row = [1]  # Start each row with 1
-        
+
         # Calculate the values for the current row based on the previous row
         for j in range(1, i):
             row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
-        
+
         row.append(1)  # End each row with 1
         triangle.append(row)  # Add the row to the triangle
 
@@ -53,4 +53,3 @@ def print_triangle(triangle):
 if __name__ == "__main__":
     triangle = pascal_triangle(5)  # Generate Pascal's triangle of size 5
     print_triangle(triangle)  # Print the generated triangle
-
