@@ -16,7 +16,7 @@ def validUTF8(data):
     Args:
         data (list[int]): A list of integers representing a data set
         containing UTF-8 encoded characters. Each integer represents 1
-        byte of data         (8 least significant bits).
+        byte of data (8 least significant bits).
 
     Returns:
         bool: True if the data set is a valid UTF-8 encoding,
@@ -38,25 +38,21 @@ def validUTF8(data):
     """
     num_bytes = 0
 
-    # Masks for checking the validity of the first byte of a character
-    masks = [0b10000000, 0b11100000, 0b11110000, 0b11111000]
-
-    # Bits that the first byte of a character should match
-    bits = [0b00000000, 0b11000000, 0b11100000, 0b11110000]
-
     for byte in data:
         # Check if the byte is a continuation byte (i.e., starts
         # with 10xxxxxx)
         if num_bytes == 0:
-            for mask, bit in zip(masks, bits):
-                if byte & mask == bit:
-                    num_bytes = masks.index(mask) + 1
-                    break
+            if (byte & 0b10000000) == 0:
+                num_bytes = 1
+            else:
+                # Determine the number of leading 1 bits in the byte
+                while (byte & 0b10000000) != 0:
+                    byte <<= 1
+                    num_bytes += 1
 
-            # If the byte doesn't match any valid start of a character,
-            # it's invalid
-            if num_bytes == 0:
-                return False
+                # The first byte should have the correct number of leading 1s
+                if num_bytes < 2 or num_bytes > 4:
+                    return False
 
             # If the character has only one byte, no need to check further
             if num_bytes == 1:
