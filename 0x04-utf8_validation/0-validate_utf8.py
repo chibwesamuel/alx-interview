@@ -59,7 +59,7 @@ def validUTF8(data):
                 continue
 
         else:
-            # Check for invalid continuation bytes (should start with 10xxxxxx)
+            # Check for invalid continuation bytes (should start with 10xxxx)
             if (byte & 0b11000000) != 0b10000000:
                 return False
 
@@ -102,6 +102,7 @@ if __name__ == "__main__":
     print(validUTF8(data))
 
     # Long data set test
-    data = [197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1,
-            197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1]
+    data = [197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130,
+            1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130, 1, 197, 130,
+            1, 197, 130, 1, 197, 130, 1]
     print(validUTF8(data))
