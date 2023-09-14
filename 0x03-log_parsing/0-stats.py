@@ -9,7 +9,7 @@ Return status codes in ascending order
 import sys
 from collections import defaultdict
 import signal
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple, Optional, Union
 import re
 
 # Global variables to store statistics
@@ -72,9 +72,9 @@ def handle_interrupt(signum: int, frame) -> None:
 signal.signal(signal.SIGINT, handle_interrupt)
 
 
-def main() -> None:
+def process_input() -> None:
     """
-    Main function to compute metrics.
+    Process input lines and update statistics.
 
     Args: None
 
@@ -87,13 +87,20 @@ def main() -> None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-        # Print final statistics if the loop ends without KeyboardInterrupt
-        print_stats()
-
     except KeyboardInterrupt:
-        # This block is no longer needed, as the signal handler handles it
-
         pass
+
+
+def main() -> None:
+    """
+    Main function to compute metrics.
+
+    Args: None
+
+    Returns: None
+    """
+    process_input()
+    print_stats()
 
 
 if __name__ == "__main__":
