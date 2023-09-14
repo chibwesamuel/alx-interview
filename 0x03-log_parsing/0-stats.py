@@ -87,21 +87,13 @@ def main() -> None:
                 total_size += file_size
                 status_counts[status_code] += 1
 
-            if line_counter % 10 == 0:
-                print_stats()
+        # Print final statistics if the loop ends without KeyboardInterrupt
+        print_stats()
 
     except KeyboardInterrupt:
-        """
-        Handle KeyboardInterrupt by printing statistics and exiting.
+        # This block is no longer needed, as the signal handler handles it
 
-        Args: None
-
-        Returns: None
-        """
         pass
-
-    # Print final statistics if the loop ends without KeyboardInterrupt
-    print_stats()
 
 
 if __name__ == "__main__":
