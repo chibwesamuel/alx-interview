@@ -70,33 +70,55 @@ def isWinner(x, nums):
 # Test Cases
 if __name__ == "__main__":
     """Main function"""
-    # Test Case 1: Specific input
+    # Test Case 1: Ben wins
     x = 5
     nums = [1, 2, 3, 4, 5]
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    winner = isWinner(x, nums)
-    if winner == "Ben":
-        print("Winner: Ben")
-        print("Alternate Winner: Maria")
-    elif winner == "Maria":
-        print("Winner: Maria")
-        print("Alternate Winner: Ben")
+    result = isWinner(x, nums)
+    if result == "Ben":
+        print("Winner: Ben")  # Expected output: Ben
+    elif result == "Maria":
+        print("Winner: Maria")  # Expected output: Maria
     else:
         print("No winner")
 
-    # Test Case 2: Specific input
+    # Test Case 1: Maria wins
+    x = 5
+    nums = [1, 2, 3, 4, 5]
+    print("\nNumber of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    result = isWinner(x, nums)
+    if result == "Maria":
+        print("Winner: Maria")  # Expected output: Maria
+    elif result == "Ben":
+        print("Winner: Ben")  # Expected output: Ben
+    else:
+        print("No winner")
+
+    # Test Case 2: Ben wins
     x = 10
     nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
     print("\nNumber of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    winner = isWinner(x, nums)
-    if winner == "Ben":
-        print("Winner: Ben")
-        print("Alternate Winner: Maria")
-    elif winner == "Maria":
-        print("Winner: Maria")
-        print("Alternate Winner: Ben")
+    result = isWinner(x, nums)
+    if result == "Ben":
+        print("Winner: Ben")  # Expected output: Ben
+    elif result == "Maria":
+        print("Winner: Maria")  # Expected output: Maria
+    else:
+        print("No winner")
+
+    # Test Case 2: Maria wins
+    x = 10
+    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
+    print("\nNumber of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    result = isWinner(x, nums)
+    if result == "Maria":
+        print("Winner: Maria")  # Expected output: Maria
+    elif result == "Ben":
+        print("Winner: Ben")  # Expected output: Ben
     else:
         print("No winner")
 
@@ -113,10 +135,3 @@ if __name__ == "__main__":
     print("\nNumber of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
-
-    # Test Case 6: Specific input
-    x = 10
-    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
-    print("Number of rounds: {}".format(x))
-    print("Maximum values for each round: {}".format(nums))
-    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
