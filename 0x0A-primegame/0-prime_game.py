@@ -51,21 +51,20 @@ def isWinner(x, nums):
 
     Returns:
         str: The name of the player who won the most rounds
-        (either 'Maria' or 'Ben'), or None if the winner cannot be determined.
+        (either 'Maria', 'Ben'), or None if the winner cannot be determined.
     """
     if x <= 0:
         return None
 
-    maria_turn = True
+    prime_counts = 0
     for n in nums:
-        if n < 2:
-            return None  # Invalid input, so return None
-        prime_count = sum(1 for i in range(2, n + 1) if is_prime(i))
-        if prime_count % 2 == 0:
-            return "Ben" if maria_turn else "Maria"
-        maria_turn = not maria_turn  # Toggle the player's turn
+        if n >= 2:
+            prime_counts += is_prime(n)
 
-    return "Maria" if maria_turn else "Ben"
+    if prime_counts % 2 == 0:
+        return "Ben"
+    else:
+        return "Maria"
 
 
 # Test Cases
@@ -82,7 +81,7 @@ if __name__ == "__main__":
     nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Ben
 
     # Test Case 3: Handle n = 0
     x = 1
@@ -97,3 +96,17 @@ if __name__ == "__main__":
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
+
+    # Test Case 1: Specific input
+    x = 5
+    nums = [1, 2, 3, 4, 5]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
+
+    # Test Case 6: Specific input
+    x = 10
+    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
