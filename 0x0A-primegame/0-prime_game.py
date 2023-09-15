@@ -51,71 +51,72 @@ def isWinner(x, nums):
 
     Returns:
         str: The name of the player who won the most rounds
-        (either 'Maria' or 'Ben'), or None if the winner cannot be determined.
+        (either 'Maria', 'Ben'), or None if the winner cannot be determined.
     """
     if x <= 0:
         return None
 
-    maria_turn = True
-    maria_wins = False  # Track if Maria has won at least once
-    ben_wins = False  # Track if Ben has won at least once
-
+    prime_counts = 0
     for n in nums:
-        if n < 2:
-            return None  # Invalid input, so return None
-        prime_count = sum(1 for i in range(2, n + 1) if is_prime(i))
-        
-        if prime_count % 2 == 0:
-            ben_wins = True
-        else:
-            maria_wins = True
-        
-        maria_turn = not maria_turn  # Toggle the player's turn
+        if n >= 2:
+            prime_counts += is_prime(n)
 
-    if maria_wins and ben_wins:
-        return "Maria and Ben"
-    elif maria_wins:
-        return "Maria"
-    elif ben_wins:
+    if prime_counts % 2 == 0:
         return "Ben"
     else:
-        return None
+        return "Maria"
 
 
 # Test Cases
 if __name__ == "__main__":
+    """Main function"""
     # Test Case 1: Specific input
     x = 5
     nums = [1, 2, 3, 4, 5]
     print("Number of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    result = isWinner(x, nums)
-    if result:
-        print("Winner: {}".format(result))  # Expected output: Ben and Maria
+    winner = isWinner(x, nums)
+    if winner == "Ben":
+        print("Winner: Ben")
+        print("Alternate Winner: Maria")
+    elif winner == "Maria":
+        print("Winner: Maria")
+        print("Alternate Winner: Ben")
     else:
         print("No winner")
 
     # Test Case 2: Specific input
     x = 10
     nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
-    print("Number of rounds: {}".format(x))
+    print("\nNumber of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
-    result = isWinner(x, nums)
-    if result:
-        print("Winner: {}".format(result))  # Expected output: Maria and Ben
+    winner = isWinner(x, nums)
+    if winner == "Ben":
+        print("Winner: Ben")
+        print("Alternate Winner: Maria")
+    elif winner == "Maria":
+        print("Winner: Maria")
+        print("Alternate Winner: Ben")
     else:
         print("No winner")
 
     # Test Case 3: Handle n = 0
     x = 1
     nums = [0]
-    print("Number of rounds: {}".format(x))
+    print("\nNumber of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
 
     # Test Case 4: Handle negative x
     x = -1
     nums = [10]
-    print("Number of rounds: {}".format(x))
+    print("\nNumber of rounds: {}".format(x))
     print("Maximum values for each round: {}".format(nums))
     print("Winner: {}".format(isWinner(x, nums)))  # Expected output: None
+
+    # Test Case 6: Specific input
+    x = 10
+    nums = [5, 5, 5, 5, 5, 2, 2, 2, 2, 2]
+    print("Number of rounds: {}".format(x))
+    print("Maximum values for each round: {}".format(nums))
+    print("Winner: {}".format(isWinner(x, nums)))  # Expected output: Maria
