@@ -8,7 +8,7 @@ def makeChange(coins, total):
     """
     Determine the fewest number of coins needed to meet a given amount total,
     given a pile of coins of different values.
-    
+
     :param coins: List of coin values available.
     :param total: Target total to make with coins.
     :return: Fewest number of coins needed to meet total, or -1 if impossible
@@ -26,7 +26,8 @@ def makeChange(coins, total):
         # Iterate through each total value
         for value in range(coin, total + 1):
             # Update the minimum number of coins needed for the current total
-            min_coins[value] = min(min_coins[value], min_coins[value - coin] + 1)
+            min_coins[value] = min(min_coins[value],
+                                   min_coins[value - coin] + 1)
 
     # If the minimum number of coins for the target total is still infinity
     # it means it's not possible
