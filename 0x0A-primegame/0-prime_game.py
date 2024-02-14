@@ -6,13 +6,15 @@ Determines winner of prime number removal game with optimal play.
 from typing import List, Union
 
 
-def isWinner(x: int, nums: List[int]) -> Union[str, None]:
+def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
 
+    Prototype: def isWinner(x, nums)
+    
     Args:
         x: The number of rounds played.
-        nums: An array of integers representing the value of n for each round
+        nums: An array of integers representing the value of n for each round.
 
     Returns:
         The name of the player who won the most rounds.
