@@ -3,15 +3,13 @@
 Determines winner of prime number removal game with optimal play.
 """
 
-from typing import List, Union
-
 
 def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
 
     Prototype: def isWinner(x, nums)
-    
+
     Args:
         x: The number of rounds played.
         nums: An array of integers representing the value of n for each round.
@@ -20,7 +18,7 @@ def isWinner(x, nums):
         The name of the player who won the most rounds.
         If the winner cannot be determined, returns None.
     """
-    def is_prime(n: int) -> bool:
+    def is_prime(n):
         """
         Check if a number is prime.
 
@@ -43,7 +41,7 @@ def isWinner(x, nums):
             i += 6
         return True
 
-    def get_primes(n: int) -> List[int]:
+    def get_primes(n):
         """
         Get all prime numbers up to a given number.
 
@@ -59,7 +57,7 @@ def isWinner(x, nums):
                 primes.append(i)
         return primes
 
-    def isMariaWin(primes: List[int]) -> bool:
+    def isMariaWin(primes):
         """
         Determine if Maria wins the game.
 
