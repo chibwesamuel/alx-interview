@@ -73,12 +73,16 @@ def isWinner(x, nums):
                 turn += 1
         return turn % 2 == 1
 
-    primes = get_primes(max(nums))
-    maria_wins = isMariaWin(primes)
+    for n in nums:
+        primes = get_primes(n)
+        maria_wins = isMariaWin(primes)
 
-    if maria_wins:
-        return "Maria"
-    elif not maria_wins:
-        return "Ben"
-    else:
-        return None
+        if maria_wins:
+            print("Winner: Maria")
+        elif not maria_wins:
+            print("Winner: Ben")
+        else:
+            print("Winner: None")
+
+# Test the function
+isWinner(5, [2, 5, 1, 4, 3])
