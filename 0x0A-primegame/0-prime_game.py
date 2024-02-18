@@ -9,7 +9,7 @@ def isWinner(x, nums):
     Determine the winner of the Prime Game.
 
     Prototype: def isWinner(x, nums)
-    
+
     Args:
         x: The number of rounds played.
         nums: An array of integers representing the value of n for each round.
