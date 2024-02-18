@@ -53,12 +53,7 @@ def isWinner(x, nums):
         """
         primes = []
         for num in range(2, max_num + 1):
-            is_prime = True
-            for divisor in range(2, int(num ** 0.5) + 1):
-                if num % divisor == 0:
-                    is_prime = False
-                    break
-            if is_prime:
+            if is_prime(num):
                 primes.append(num)
         return primes
 
@@ -87,20 +82,27 @@ def isWinner(x, nums):
 
         return maria_wins
 
+    # Initialize counts for Maria and Ben's wins
     maria_wins_count = 0
     ben_wins_count = 0
 
-    max_num = max(nums)  # Find the maximum value in nums
+    # Find the maximum value in nums
+    max_num = max(nums)
 
+    # Iterate through each round
     for n in nums:
+        # Generate primes up to n (or max_num if n is greater)
         primes = get_primes(n if n < max_num else max_num)
+        # Determine if Maria wins the round
         maria_wins = isMariaWin(primes)
 
+        # Update wins count for Maria and Ben
         if maria_wins:
             maria_wins_count += 1
         else:
             ben_wins_count += 1
 
+    # Determine the overall winner
     if maria_wins_count > ben_wins_count:
         return "Maria"
     elif ben_wins_count > maria_wins_count:
