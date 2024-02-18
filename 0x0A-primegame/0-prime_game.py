@@ -41,20 +41,25 @@ def isWinner(x, nums):
             i += 6
         return True
 
-    def get_primes(n):
+    def get_primes(max_num):
         """
-        Get all prime numbers up to a given number.
+        Get all prime numbers up to a given maximum number.
 
         Args:
-            n: The maximum number.
+            max_num: The maximum number.
 
         Returns:
             A list of prime numbers.
         """
         primes = []
-        for i in range(1, n + 1):
-            if is_prime(i):
-                primes.append(i)
+        for num in range(2, max_num + 1):
+            is_prime = True
+            for divisor in range(2, int(num ** 0.5) + 1):
+                if num % divisor == 0:
+                    is_prime = False
+                    break
+            if is_prime:
+                primes.append(num)
         return primes
 
     def isMariaWin(primes):
@@ -85,8 +90,10 @@ def isWinner(x, nums):
     maria_wins_count = 0
     ben_wins_count = 0
 
+    max_num = max(nums)  # Find the maximum value in nums
+
     for n in nums:
-        primes = get_primes(n)
+        primes = get_primes(n if n < max_num else max_num)
         maria_wins = isMariaWin(primes)
 
         if maria_wins:
