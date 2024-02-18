@@ -9,7 +9,7 @@ def isWinner(x, nums):
     Determine the winner of the Prime Game.
 
     Prototype: def isWinner(x, nums)
-
+    
     Args:
         x: The number of rounds played.
         nums: An array of integers representing the value of n for each round.
@@ -67,22 +67,36 @@ def isWinner(x, nums):
         Returns:
             True if Maria wins, False otherwise.
         """
-        turn = 0
-        for n in nums:
-            if n in primes:
-                turn += 1
-        return turn % 2 == 1
+        # Count the occurrences of each prime number
+        prime_counts = {}
+        for p in primes:
+            prime_counts[p] = prime_counts.get(p, 0) + 1
+
+        # Determine who wins based on the count of each prime number
+        maria_wins = True
+        for count in prime_counts.values():
+            # If the count is even, Maria will lose this round
+            if count % 2 == 0:
+                maria_wins = False
+                break
+
+        return maria_wins
+
+    maria_wins_count = 0
+    ben_wins_count = 0
 
     for n in nums:
         primes = get_primes(n)
         maria_wins = isMariaWin(primes)
 
         if maria_wins:
-            print("Winner: Maria")
-        elif not maria_wins:
-            print("Winner: Ben")
+            maria_wins_count += 1
         else:
-            print("Winner: None")
+            ben_wins_count += 1
 
-# Test the function
-isWinner(5, [2, 5, 1, 4, 3])
+    if maria_wins_count > ben_wins_count:
+        return "Maria"
+    elif ben_wins_count > maria_wins_count:
+        return "Ben"
+    else:
+        return None
