@@ -1,4 +1,19 @@
-def makeChange(coins, total):
+#!/usr/bin/python3
+"""
+Function that returns fewest number of coins needed to meet total
+"""
+
+from typing import List, Union
+
+def makeChange(coins: List[int], total: int) -> int:
+    """
+    Determine the fewest number of coins needed to meet a given amount total,
+    given a pile of coins of different values.
+
+    :param coins: List of coin values available.
+    :param total: Target total to make with coins.
+    :return: Fewest number of coins needed to meet total, or -1 if impossible
+    """
     if total < 1:
         return 0
 
