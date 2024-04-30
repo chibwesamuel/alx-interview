@@ -3,7 +3,8 @@
 Function that returns fewest number of coins needed to meet total
 """
 
-from typing import List, Union
+from typing import List
+
 
 def makeChange(coins: List[int], total: int) -> int:
     """
@@ -31,10 +32,12 @@ def makeChange(coins: List[int], total: int) -> int:
                 if min_coins[value] == -1:
                     min_coins[value] = min_coins[value - coin] + 1
                 else:
-                    min_coins[value] = min(min_coins[value], min_coins[value - coin] + 1)
+                    min_coins[value] = min(min_coins[value],
+                                           min_coins[value - coin] + 1)
 
     # Return the minimum number of coins for the target total
     return min_coins[total]
+
 
 if __name__ == "__main__":
     print(makeChange([1, 2, 25], 37))
