@@ -1,4 +1,4 @@
-```markdown
+```
 # Making Change
 
 ## Author
