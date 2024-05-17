@@ -23,7 +23,8 @@ def isWinner(x, nums):
 
     def sieve(n):
         """
-        Returns a list of primes up to n using the Sieve of Eratosthenes
+        Returns a list of booleans representing prime
+        status for numbers up to n
         """
         is_prime = [True] * (n + 1)
         is_prime[0] = is_prime[1] = False
@@ -31,14 +32,10 @@ def isWinner(x, nums):
             if is_prime[i]:
                 for j in range(i * i, n + 1, i):
                     is_prime[j] = False
-        primes = []
-        for i in range(n + 1):
-            if is_prime[i]:
-                primes.append(i)
-        return primes
+        return is_prime
 
     max_num = max(nums)
-    primes_up_to_max = sieve(max_num)
+    is_prime = sieve(max_num)
 
     maria_wins = 0
     ben_wins = 0
@@ -47,7 +44,8 @@ def isWinner(x, nums):
         if n < 2:
             ben_wins += 1
             continue
-        primes = [p for p in primes_up_to_max if p <= n]
+
+        primes = [i for i in range(2, n + 1) if is_prime[i]]
         multiples_removed = [False] * (n + 1)
         move_count = 0
 
