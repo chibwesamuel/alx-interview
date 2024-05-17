@@ -3,6 +3,7 @@
 Determines winner of prime number removal game with optimal play.
 """
 
+
 def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
@@ -19,7 +20,7 @@ def isWinner(x, nums):
     """
     if x < 1 or not nums:
         return None
-    
+
     def sieve(n):
         """
         Returns a list of primes up to n using the Sieve of Eratosthenes
@@ -38,7 +39,7 @@ def isWinner(x, nums):
 
     max_num = max(nums)
     primes_up_to_max = sieve(max_num)
-    
+
     maria_wins = 0
     ben_wins = 0
 
@@ -49,7 +50,7 @@ def isWinner(x, nums):
         primes = [p for p in primes_up_to_max if p <= n]
         multiples_removed = [False] * (n + 1)
         move_count = 0
-        
+
         while True:
             move_made = False
             for prime in primes:
@@ -61,7 +62,7 @@ def isWinner(x, nums):
                     break
             if not move_made:
                 break
-        
+
         if move_count % 2 == 1:
             maria_wins += 1
         else:
